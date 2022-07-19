@@ -1,0 +1,73 @@
+{% extends 'public/home/home_base.html' %}
+
+ {% block title %}Shipment {% endblock %}
+
+{% block main %} 
+<head>
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/public/shipments_creation.css') }}"
+  />
+</head>
+<body>
+  {% for message in get_flashed_messages()%}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  
+       <div class="buttons">
+        <a href="{{ url_for('shipments_creation') }}" class="button">Create a new shipment</a>
+        </div>
+   
+
+<div class="container">
+
+    {% for Shipments in shipments%}
+ 
+        <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" >Shipments ID</th>
+                <th scope="col">Client</th>
+                <th scope="col">Shipments Type</th>
+                <th scope="col">Allocation</th>
+                <th scope="col">Creation Date</th>
+                <th scope="col">Commodity</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+              <tr>
+                
+                <td>{{Shipments.ron}}</td>
+                <td>{{Shipments.client_name}}</td>
+                <td>{{Shipments.Shipments_type}}</td>
+                <td>{{Shipments.total_allocation}}</td>
+                <td>{{Shipments.created_at}}</td>
+                <td>{{Shipments.commodity}}</td>
+                
+              </tr>
+              </a>
+            </tbody>
+           
+          </table>
+
+
+
+
+   {% endfor%}
+
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+     <script src="{{ url_for('static', filename='js/public/shipments_creation.js') }}"></script>
+  </body>
+</html>
+
+
+{%endblock%}
+

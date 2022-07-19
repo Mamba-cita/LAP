@@ -1,0 +1,275 @@
+from locale import currency
+from unicodedata import category
+from xml.dom.minidom import Document
+from flask import Flask
+from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date, datetime
+from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user, login_user, logout_user, login_required
+
+
+
+
+
+class LapModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+    
+
+class Cargo_Managers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    phone = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    Client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Transport_Managers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    phone = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Client_User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+
+
+class Client(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    type = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    bank_account = db.Column(db.Numeric(50), nullable=False)
+    bank_name = db.Column(db.String(80), nullable=False)
+    branch_name = db.Column(db.String(80), nullable=False)
+    branch_code = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime, default=date.today())
+    updated_at = db.Column(db.DateTime, default=date.today())
+    documents = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Shipments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Shipments_id = db.Column(db.String(80), nullable=False)
+    Client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
+    Receiver_id = db.Column(db.Integer, db.ForeignKey('receiver.id'))
+    Receiver_id = db.Column(db.Integer, db.ForeignKey('receiver.id'))
+    origin = db.Column(db.String(80), nullable=False)
+    destination = db.Column(db.String(80), nullable=False)
+    pipeline = db.Column(db.String(80), nullable=False)
+    shipment_type = db.Column(db.String(80), nullable=False)
+    commodity = db.Column(db.String(80), nullable=False)
+    workflow = db.Column(db.String(80), nullable=False)
+    total_alloction = db.Column(db.Numeric(50), nullable=False)
+    lpo = db.Column(db.Numeric(50), nullable=False)
+    cargo_rate = db.Column(db.Numeric(50), nullable=False)
+    rate_type = db.Column(db.String(80), nullable=False)
+    carrency_type = db.Column(db.String(80), nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    Carrier_id = db.Column(db.Integer, db.ForeignKey('carrier.id'))
+    trailer_type = db.Column(db.String(80), nullable=False)
+    no_go_trailer = db.Column(db.String(80), nullable=False)
+    loading_date = db.Column(db.DateTime, nullable=False)
+    last_date = db.Column(db.DateTime, nullable=False)
+    loading_hours = db.Column(db.String(80), nullable=False)
+    offloading_hours = db.Column(db.String(80), nullable=False)
+    trucklist_contact = db.Column(db.String(80), nullable=False)
+    bl_no = db.Column(db.String(80), nullable=False)
+    packaging_type = db.Column(db.String(80), nullable=False)
+    payment_days = db.Column(db.DateTime, nullable=False)
+    alternative_rate = db.Column(db.Numeric(50), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Receiver(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    phone = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    city = db.Column(db.String(80), nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Carrier(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Transporter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    type = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    bank_account = db.Column(db.Numeric(50), nullable=False)
+    bank_name = db.Column(db.String(80), nullable=False)
+    branch_name = db.Column(db.String(80), nullable=False)
+    branch_code = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime, default=date.today())
+    updated_at = db.Column(db.DateTime, default=date.today())
+    documents = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+class Driver(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
+    id_number = db.Column(db.Numeric(50), nullable=False)
+    dl_number = db.Column(db.String(80), nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    phone = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    Transporter_id = db.Column(db.Integer, db.ForeignKey('transporter.id'))
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+
+class Truck_Registration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    truck_number = db.Column(db.String(80), nullable=False)
+    model = db.Column(db.String(80), nullable=False)
+    owner = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.String(80), nullable=False)
+    ects = db.Column(db.String(80), nullable=False)
+    ects_provider = db.Column(db.String(80), nullable=False)
+    ntsa_inspection = db.Column(db.String(80), nullable=False)
+    port_pass = db.Column(db.String(80), nullable=False)
+    kwatos = db.Column(db.String(80), nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    Driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
+    Transporter_id = db.Column(db.Integer, db.ForeignKey('transporter.id'))
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+
+
+class Trailer_Registration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    trailer_number = db.Column(db.String(80), nullable=False)
+    trailer_type = db.Column(db.String(80), nullable=False)
+    trailer_loading_capacity = db.Column(db.Numeric(50), nullable=False)
+    trailer_loading_type = db.Column(db.String(80), nullable=False)
+    owner = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.String(80), nullable=False)
+    ntsa_inspection = db.Column(db.String(80), nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    Transporter_id = db.Column(db.Integer, db.ForeignKey('transporter.id'))
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+class Work_Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    worker_id = db.Column(db.String(80), nullable=False)
+    Shipments_id = db.Column(db.Integer, db.ForeignKey('shipments.id'))
+    origin = db.Column(db.String(80), nullable=False)
+    destination = db.Column(db.String(80), nullable=False)
+    transport_rate = db.Column(db.Numeric(50), nullable=False)
+    rate_type = db.Column(db.String(80), nullable=False)
+    currency_transport = db.Column(db.String(80), nullable=False)
+    documents = db.Column(db.String(80), nullable=False)
+    Driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
+    matching_time =db.Column(db.DateTime(timezone=True), default=datetime.now())
+    arrival_at_loading =db.Column(db.DateTime(timezone=True), default=datetime.now())
+    gatein_loading = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    gateout_loading = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    time_t1_received = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    t1_expiry = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    arrival_at_offloading = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    gatein_offloading = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    gateout_offloading = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    arrival_at_empty = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    depucture_at_empty =db.Column(db.DateTime(timezone=True), default=datetime.now())
+    documents_received = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    invoice_sent_customer = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    customer_invoice_due =db.Column(db.DateTime(timezone=True), default=datetime.now())
+    customer_invoice_paid = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    transporter_invoice_received = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    transporter_invoice_due = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    transporter_invoice_paid =  db.Column(db.DateTime(timezone=True), default=datetime.now())
+    weight_units_to_load = db.Column(db.Numeric(50), nullable=False)
+    stage = db.Column(db.String(80), nullable=False)
+    loaded_weight = db.Column(db.Numeric(50), nullable=False)
+    order_number = db.Column(db.String(80), nullable=False)
+    client_delivery_order_number = db.Column(db.String(80), nullable=False)
+    loaded_bags = db.Column(db.Numeric(50), nullable=False)
+    weight_per_bag = db.Column(db.Numeric(50), nullable=False)
+    offloaded_weight = db.Column(db.Numeric(50), nullable=False)
+    offloaded_bags = db.Column(db.Numeric(50), nullable=False)
+    missing_bags = db.Column(db.Numeric(50), nullable=False)
+    vat_charged = db.Column(db.Numeric(50), nullable=False)
+    Client_total_invoice = db.Column(db.Numeric(50), nullable=False)
+    total_amount_deducted = db.Column(db.Numeric(50), nullable=False)
+    transport_total_invoice = db.Column(db.Numeric(50), nullable=False)
+    profit_margin = db.Column(db.Numeric(50), nullable=False)
+    profit_margin_percentage = db.Column(db.Numeric(50), nullable=False)
+    empty_return_depot = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+
+class Depot_List(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    country = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
+    address = db.Column(db.String(80), nullable=False)
+    city = db.Column(db.String(80), nullable=False)
+    state = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    
+    
+    
+    
+
+
+
+

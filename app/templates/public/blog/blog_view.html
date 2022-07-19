@@ -1,0 +1,29 @@
+{% extends "public/index/index_base.html" %} {% block title %}Afri Raising{%
+    endblock %} 
+     
+     {% block main %} 
+     <div class="container p-2 mt-5">
+     <div class="container p-2 mt-5">
+
+    
+    <h1 >Blog Post</h1>
+   
+<div class="shadow p-2 mb-2 mt-4 bg-body rounded">
+<h1>{{ blog.title }}</h1>
+{{ blog.slug }}<br/>
+<hr>
+{{ blog.content | safe }}
+<hr/>
+By: {{ blog.post_id }} |  Date: <small>{{ blog.date_created }}<small><br/>
+</div>
+
+
+</div>
+<a href="{{ url_for('edit_post', id=blog.id) }}" class="btn btn-outline-secondary btn-sm">Edit Post</a>
+<a href="{{url_for('blogs')}}" class="btn btn-outline-secondary btn-sm p-1 m-2">Back To Blog Page</a>
+</div>
+
+
+
+{% endblock %}
+    

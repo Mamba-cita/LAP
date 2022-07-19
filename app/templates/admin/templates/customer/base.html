@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Boxicons CSS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/public/public.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body id="body">
+    <!-- Topbar Start -->
+
+    <div class="sidebar close">
+      <div class="logo-details">
+        <i class="bx bxs-truck"></i>
+        <div class="logo_name">Maisha Steel</div>
+      </div>
+
+      <!--menuBtn-->
+      <i class="bx bx-menu" id="btn"></i>
+
+      <!--end of menuBtn -->
+
+      <!--search bar -->
+       <!--
+      <div class="search-bar">
+        <i class="bx bx-search" id="searchIcon"></i>
+        <input type="text" placeholder="Search......" />
+      </div>
+       -->
+      <!-- end of search bar -->
+
+      <!--start of nav ul -->
+      <ul class="nav-links">
+        <li>
+          <a href="#">
+            <i class="bx bxs-truck"></i>
+            <span class="link_name">Available Jobs</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="#">Dashboard</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="bx bxs-dashboard"></i>
+              <span class="link_name">Dashboard</span>
+            </a>
+            <i class="bx bxs-chevron-down arrow"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Dashboard</a></li>
+            <li>
+              <a href="">
+                <i class="bx bxs-inbox"></i>
+                Inbound
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bx-cart-add"></i>
+                Loading
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="bx bx-car"></i>
+                Enroute
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bxs-cart-download"></i>
+                Offloading
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bxs-component"></i>
+                Delivered
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bx-money-withdraw"></i>
+                Not Invoiced
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bxs-wallet-alt"></i>
+                Invoiced
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="bx bxs-bank"></i>
+                Paid
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bxs-bell-ring"></i>
+            <span class="link_name">Notifications</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="#">Notifications</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="bx bxs-building-house"></i>
+              <span class="link_name">Assets</span>
+            </a>
+           
+          </div>
+        <li>
+          <a href="#">
+            <i class="bx bx-bar-chart-alt"></i>
+            <span class="link_name">Analytics</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="#">Analytics</a></li>
+          </ul>
+        </li>
+        
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img
+                src="{{ url_for('static', filename='img/maisha.png') }}"
+                alt=""
+              />
+            </div>
+            <div class="name-job">
+              <div class="profile_name">MAisha Steel</div>
+              <div class="job">Client</div>
+            </div>
+            <a href="{{url_for('logout')}}" >
+            <i class="bx bx-log-out"></i>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!--end of nav ul -->
+
+    </div>
+
+    <!-- Navbar End -->
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+      <div class="row py-2 px-lg-5">
+          <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+              <div class="d-inline-flex align-items-center mr-6 text-white">
+                  <small><i class="fa fa-phone-alt mr-3"></i>+254 7000000</small>
+                  <small class="px-3">|</small>
+                  <small><i class="fa fa-envelope mr-3"></i>afriraising.limited@gmail.com</small>
+                  <small class="px-3">|</small>
+                  <small><i class="fa fa-envelope mr-3"></i>Kenya</small>
+              </div>
+          </div>
+          </div>
+      </div>
+  
+  <!-- Topbar End -->
+    <!-- start of main content -->
+    <div class="main-content">
+          
+      <!-- start of header -->
+ 
+      
+      {% block content %} {% endblock%} 
+
+        <!-- start of footer -->
+        {% block footer %}
+        <footer class="footer">
+          <div class="fixed-bottom" >
+            <span class="text-muted">Coded by mamba-cita Team.</span>
+          </div>
+        </footer>
+        {% endblock %}
+        <!-- end of footer -->
+    
+    <!-- end of main content -->
+    </div>
+    <!-- start of scripts -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+      integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <script src="{{ url_for('static', filename='js/admin/customer.js') }}"></script>
+
+  <!-- end of scripts -->
+</html>

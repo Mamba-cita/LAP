@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+
+}
+body{
+    //background-image:url('/static/img/heavy.jpg'); 
+    background-image: url('/static/img/cloudtrucks.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+
+}
+
+.form-input{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    //padding: 40px;
+    background-color: #fff;
+
+    box-shadow: white;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+
+}
+.header{
+    //background-image: url('/static/img/cloudtrucks.jpg');
+   background-image:url('/static/img/heavy.png'); 
+    background-size: cover;
+    padding: 90px 30px;
+    color: blue;
+    border-radius: 10px 10px 0px 0px;
+
+
+    h1{
+        font-size: 28px;
+        font-weight: bold;
+        text-align: top;
+       
+    }
+    p{
+        font-size: 22px;
+        font-weight: bold;
+        text-align: bottom;
+        color: bisque;
+    }
+ 
+}
+.login-area{
+    text-align: center;
+    padding: 50px 50px 30px 50px;
+
+
+    input{
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border:none;
+        outline:none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        background-color:bisque;
+        box-shadow: 0px 0px 10px rgb(216, 201, 201);
+    }
+
+    .email:focus,
+    .password:focus{
+        background-color:rgb(235, 147, 41);
+    }
+    .btn{
+        width:150px;
+        padding: 10px;
+        background-color: rgb(235, 147, 41);
+        border:none;
+        outline:none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: aqua;
+        transition: .2s;
+        cursor:pointer;
+
+        &:hover{
+            background-color:rgb(46, 40, 33);
+            color: rgb(235, 147, 41);
+        }
+    }
+}
+.footer {
+    background-color: rgb(202, 134, 56);
+    padding: 18px;
+    color: bisque;
+    text-align: center;
+    border-radius: 0px 0px 10px 10px;
+
+
+
+
+a{
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: .2s;
+ 
+    
+    }
+
+
+}

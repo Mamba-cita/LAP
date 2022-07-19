@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Boxicons CSS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/public/index_base.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="#" class="brand-logo">AFRI</a>
+
+      <input type="checkbox" id="menu">
+      <label for="menu"><i class='bx bx-menu'></i></label>
+      <nav class="navbar">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Login + </a></i>
+          <ul>
+            <li><a href="{{url_for ('login')}}">AFRI</a></li>
+            <li><a href="">CLIENT</a></li>
+          </ul>
+          </li>
+          <li><a href="#">Available Jobs</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="{{url_for('blogs')}}">Our Blog</a></li>
+        </ul>
+        <form class="d-flex" role="search" method="post"  action="{{url_for('search')}}">
+          {{form.hidden_tag()}}
+          <input class="form-control me-2" type="search" placeholder="Search" name="Searched" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </nav>
+    </header>
+    
+    <!-- Navbar End -->
+    {% block main %} 
+    {% for message in get_flashed_messages()%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    
+    
+    
+    
+    
+    
+    
+    
+    {% endblock%}
+    
+    
+    {% block footer %}
+    <footer class="footer">
+      <div class="fixed-bottom">
+        <span class="text-muted">Coded by mamba-cita Team.</span>
+      </div>
+    </footer>
+    {% endblock %}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+      integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='js/public/index_base.js') }}"></script>
+  </body>
+</html>

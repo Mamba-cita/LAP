@@ -1,0 +1,39 @@
+{% extends 'public/home/home_base.html' %} {% block main %} {{ ckeditor.load()
+}} {% for message in get_flashed_messages()%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{message}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %}
+<div class="shadow p-4 mb-2 mt-5 bg-body rounded">
+  <h1 class="text-center">Add Poast</h1>
+  <br /><br />
+  <form
+    action="{{url_for('posts')}}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {{form.hidden_tag()}}
+    <div class="form-group">
+      {{form.title.label}} {{form.title(class="form-control")}}
+    </div>
+
+    <div class="form-group">
+      {{form.slug.label}} {{form.slug(class="form-control")}}
+    </div>
+
+    <div class="form-group">
+      {{form.content.label}} {{form.content(class="form-control", rows=10)}}
+    </div>
+    {{form.submit(class="btn btn-secondary p-2 mt-2")}}
+  </form>
+  {{ckeditor.load()}}
+  {{ckeditor.config(name='content')}}
+
+</div>
+{% endblock %}

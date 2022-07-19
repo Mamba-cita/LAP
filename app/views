@@ -1,0 +1,161 @@
+import email
+from unicodedata import name
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, session
+from app import app, db, login_manager
+from forms import LoginForm, RegistrationForm,ClientOnboarding
+from app.models import LapModelView, User, Client, Transporter,Shipments
+from flask_admin import Admin
+
+
+@login_manager.user_loader
+def login_user(user_id):
+    return User.query.get(int(user_id))
+
+
+admin = Admin(app)
+admin.add_view(LapModelView(User, db.session))
+admin.add_view(LapModelView(Client, db.session))
+admin.add_view(LapModelView(Transporter, db.session))
+
+
+@app.route('/admin')
+def admin():
+      return redirect(url_for('admin'))
+
+
+@app.route('/validate_user', methods=['GET', 'POST'])
+def validate_user():
+    if request.method == "POST":
+        email = request.get_json()['email']
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return jsonify({"user_exists": "true"})
+        else:
+            return jsonify({"user_exists": "false"})
+
+
+@app.route('/')
+def index():
+    return render_template('public/index/index.html')
+
+
+@app.route('/customers')
+def customers():
+    return 'customers'
+
+
+@app.route('/orders')
+def orders():
+    return 'orders'
+
+
+# single order
+
+@app.route('/orders/<int:order_id>')
+def order(order_id):
+    return 'order %d' % order_id
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if request.method == 'POST':
+        user = User(
+            username=request.form['username'],
+            email=request.form['email'])
+        user.set_password(request.form['password'])
+        db.session.add(user)
+        db.session.commit()
+        db.session.close()
+        flash('You are now registered and can log in')
+        return redirect(url_for('login'))
+    return render_template('admin/templates/users/templates/register.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if request.method == 'POST':
+        user = User.query.filter_by(email=request.form['email']).first()
+        if user is not None and user.check_password(request.form['password']):
+            session['user_id'] = user.id
+            return redirect(url_for('home'))
+        else:
+            flash('Incorrect username or password')
+            return redirect(url_for('login'))
+
+    return render_template('admin/templates/users/templates/login.html', form=form)
+
+
+@app.route('/home')
+def home():
+    return render_template('public/home/home.html')
+
+
+@app.route('/clients', methods=['GET', 'POST'])
+def clients():
+     form = ClientOnboarding()
+     form.user_id.choices = [(user.id, user.username) for user in User.query.all()]
+     if request.method == 'POST':
+         client = Client(
+             name=request.form['name'],
+             email=request.form['email'],
+             user_id=request.form['user_id'])
+         db.session.add(client)
+         db.session.commit()
+         db.session.close()
+         flash('Client added successfully to the system')
+     return render_template('admin/templates/clients/templates/clients.html',form=form)
+
+
+
+@app.route('/transporters', methods=['GET', 'POST'])
+def transporters():
+    transporters = Transporter.query.all()
+    return render_template('admin/templates/transporters/templates/transporters.html')
+    
+
+@app.route('/assets', methods=['GET', 'POST'])
+def assets():
+    return render_template('admin/templates/assets/assets.html')
+
+# shipments
+
+@app.route('/shipments', methods=['GET', 'POST'])
+def shipments():
+    shipments = Shipments.query.all()
+   
+    return render_template('public/home/shipments.html', shipments=shipments)
+
+
+
+@app.route('/shipments_creation', methods=['GET', 'POST'])
+def shipments_creation():
+    return render_template('public/home/shipments_creation.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You were logged out')
+    return render_template('public/index/index.html')
+
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    return render_template('public/home/order.html') 
+
+
+
+  {% if current_user.is_authenticated %}
+
+
+
+  {% else %}
+  <h2>Login Required.....!!!</h2>
+  <p>Sorry, but you must be logged in to see this page.</p>
+  <a href="{{url_for('login')}}" class="btn btn-primary">Login</a>
+
+
+  {% endif %}

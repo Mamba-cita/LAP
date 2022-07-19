@@ -1,0 +1,61 @@
+{% extends 'public/home/home_base.html' %}
+  
+  
+{% block main %} 
+
+  
+  {% for message in get_flashed_messages()%}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% if current_user.is_authenticated %}
+
+  <p> Welcome To Your Profile {{current_user.username}}</p>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  
+  
+  
+  <div class="card">
+    <div class="card-header">
+      <h3>{{current_user.username}}'s  Profile Information</h3> 
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-8">
+      <strong>Name: </strong>{{current_user.username}} <br/>
+      <strong>Email: </strong> {{current_user.email}}<br/>
+      <strong>User ID: </strong>{{current_user.id}} <br/>
+      <strong>Role: </strong>{{current_user. user_job}} <br/>
+
+      <br/><br/>
+      <a href="{{url_for('update_user', id=current_user.id)}}" class="btn btn-secondary btn-sm">Edit Profile</a>
+      
+      <a href="{{url_for('update_user', id=current_user.id)}}" class="btn btn-secondary btn-sm">Remove Profile</a>
+     
+    </div>
+    <div class="col-4">
+      <img src="{{ url_for('static', filename='img/default.png') }}"
+      alt="" width="200"  class="img-thumbnail" align="right"/>
+    </div>
+  </div>
+  </div>
+  
+  </div>
+
+  {% else %}
+  <h2>Login Required.....!!!</h2>
+  <p>Sorry, but you must be logged in to see this page.</p>
+  <a href="{{url_for('login')}}" class="btn btn-secondary btn-sm">Login</a>
+
+
+  {% endif %}
+
+
+{% endblock %}

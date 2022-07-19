@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+ 
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/public/shipments_creation.css') }}"
+  />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  
+  <body>
+
+    {% for message in get_flashed_messages()%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    
+    <div class="container">
+        <header>
+            <h1>New Shipment </h1>
+        </header>
+<form action="#" method="post">
+    <div class="form first">
+        <div class="details">
+            <span class="title">Shipment Details</span>
+<div class="fields">
+
+            
+            <div class="input-fields">
+                <label for="client">Client</label>
+                <input type="text" name="client" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="cargo type">Cargo Type</label>
+                <input type="text" name="cargo_type" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="Trailer_Type">Trailer Type</label>
+                <input type="text" name="traile_type" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="no_go_trailer_type">No_Go Tailer Type</label>
+                <input type="text" name="no_go_trailer_type" placeholder="" required>
+            </div>
+
+            <div class="input-fields">
+                <label for="Loading_Date">Loading Date</label>
+                <input type="date" name="loading_date" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="deadline_to_lift">Deadline To Lift</label>
+                <input type="date" name="deadline_to_lift" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="clearing_agent">Clearing Agent</label>
+                <input type="clearing_agent" name="clearing_agent" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="vessel">Vessel Name</label>
+                <input type="text" name="vessel" placeholder="" required>
+            </div>
+
+            <div class="input-fields">
+                <label for="receiver">Receiver</label>
+                <input type="text" name="receiver" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="total_location">Total Alocation</label>
+                <input type="number" name="total_location"  placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="lpo">LPO</label>
+                <input type="text" name="lpo" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="ofice">Ofice</label>
+                <input type="text" name="ofice" placeholder="" required>
+            </div>
+           
+        </div>
+
+
+        <div class="details">
+            <span class="title">Journey Details</span>
+<div class="fields">
+
+            
+            <div class="input-fields">
+                <label for="origin">Origin</label>
+                <input type="text" name="origin" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="destination">Destination</label>
+                <input type="text" name="destination" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="loading_contact">Loading Contact</label>
+                <input type="text" name="loading_contact" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="offoading_contact">Offloading Contact</label>
+                <input type="text" name="offoading_contact" placeholder="" required>
+            </div>
+
+            <div class="input-fields">
+                <label for="loading_hours">Loading Hours</label>
+                <input type="text" name="loading_hours" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="offloading_hours">Offoading Hours</label>
+                <input type="text" name="offloading_hours" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="trucklist">Trucklist Contact</label>
+                <input type="text" name="trucklist" placeholder="" required>
+            </div>
+            <div class="input-fields">
+                <label for="bl">BL No.</label>
+                <input type="text" name="bl" placeholder="" required>
+            </div>
+
+           
+        </div>
+        <button class="nextBtn">
+            <span clas="btnText">Next</span>
+            <i class='bx bxs-skip-next-circle'></i>
+            </button>
+        </div>
+</div>
+
+
+<div class="form second">
+    <div class="details second">
+        <span class="title">Packaging Type</span>
+<div class="fields">
+
+        
+        <div class="input-fields">
+            <label for="packaging_type">Packaging Type</label>
+            <input type="text" name="packaging_type" placeholder="" required>
+        </div>
+        <div class="input-fields">
+            <label for="commodity">Commodity</label>
+            <input type="text" name="commodity" placeholder="" required>
+        </div>
+        <div class="input-fields">
+            <label for="cargo_rate">Cargo Rate</label>
+            <input type="text" name="cargo_rate" placeholder="" required>
+        </div>
+        <div class="input-fields">
+            <label for="alternative_cargo_rate">Alternative Cargo Rate</label>
+            <input type="text" name="alternative_cargo_rate" placeholder="" required>
+        </div>
+
+        <div class="input-fields">
+            <label for="cargo_rate_type">Cargo Rate Type</label>
+            <input type="text" name="cargo_rate_type" placeholder="" required>
+        </div>
+        <div class="input-fields">
+            <label for="loading_instructions">Loading Instrations</label>
+            <input type="text" name="loading_instructions" style="height:90px; width:300px" placeholder="" required>
+        
+
+    </div>
+    <div class="buttons">
+        <button class="prevBtn">
+            <i class='bx bxs-skip-previous-circle'></i>
+            <span clas="btnText">Previous</span>
+        </button>
+        <button class="nextBtn">
+            <span clas="btnText">Next</span>
+            <i class='bx bxs-skip-next-circle'></i>
+            </button>
+   </div>
+    </div>
+</div>
+</form>
+</div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+     <script src="{{ url_for('static', filename='js/public/shipments_creation.js') }}"></script>
+  </body>
+</html>
+
+ 
+
+  <!-- end of scripts -->
+</html>
