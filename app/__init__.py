@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'gigi'
 #database
 #app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root@localhost/lap"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://aifitqjkjukjpp:fc2214723f2c4ae7ba1f0df7af84852bf6e355ecfbcf9d5734668c0786c15e32@ec2-52-204-157-26.compute-1.amazonaws.com:5432/de4nmfmn41davh"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://grdqpgztaofikd:c189a3f66cde4f96a89bc0716542141452630431e84be32d1aa68d6047081aaf@ec2-3-219-229-143.compute-1.amazonaws.com:5432/dadt90sglqe560'
  
 
 GOOGLE_CLIENT_ID =  "522885775133-vjh6nl0glerfvd7vpgbglmqv9qtqua3h.apps.googleusercontent.com"
